@@ -1,14 +1,22 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {RecoilRoot} from "recoil"
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import Home from './pages/Home'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <p className='text-3xl'>Heelo from app </p>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home/>} />
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
+
     </>
   )
 }
