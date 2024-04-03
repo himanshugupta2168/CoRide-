@@ -9,7 +9,7 @@ function Navbar() {
         setNavBarVisible(!navbarVisible);
     }
   return (
-    <div className='flex items-center justify-between w-full h-[100px] px-10 overflow-hidden'>
+    <div className='flex items-center justify-between w-full h-[100px] px-10 overflow-hidden bg-white'>
         <div>
             <img src={Coride_Logo} alt="Logo" className='w-[100px] h-[100px]' />
         </div>
