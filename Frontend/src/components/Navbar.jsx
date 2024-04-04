@@ -27,7 +27,7 @@ function Navbar() {
         {/*  responsive navbar  */}
         {
             navbarVisible&&(
-                <div className='md:hidden absolute top-4 right-0 w-1/2 border h-screen '>
+                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white pb-10'>
                     <div className=' relative w-full h-full'>
                         <div className="cross absolute top-4 right-14 font-semibold text-2xl" onClick={handleNavbar}>X</div>
                         <div className="link pt-20  flex flex-col gap-4">
