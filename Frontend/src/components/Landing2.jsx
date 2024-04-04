@@ -20,7 +20,11 @@ function Landing2(){
                     </div>
                     <p className="font-bold">REQUEST A RIDE</p>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <p className="max-w-[45ch] text-right">Have to reach office or going for shopping ? Just put your current location and destination and search a ride that suits you</p>
+=======
+                    <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Have to reach office or going for shopping ?<br></br> Just put your current location and destination and search a ride that suits you</p>
+>>>>>>> bb5cb46f7e3f22eb3ddc9ebbbe1ad9860d3a8d14
 =======
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Have to reach office or going for shopping ?<br></br> Just put your current location and destination and search a ride that suits you</p>
 >>>>>>> bb5cb46f7e3f22eb3ddc9ebbbe1ad9860d3a8d14
@@ -33,8 +37,13 @@ function Landing2(){
                         </div>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <p className="font-bold">POST A RIDE </p>
                     <p className="max-w-[45ch] text-left">Have to reach office or going for shopping ? Just put your current location and destination and search a ride that suits you</p>
+=======
+                    <p className="font-bold">POST A RIDE</p>
+                    <p className="text-gray-500 max-w-[45ch] text-center md:text-left">Going somewhere but hate to travel alone - just post your ride details and publish it.</p>
+>>>>>>> bb5cb46f7e3f22eb3ddc9ebbbe1ad9860d3a8d14
 =======
                     <p className="font-bold">POST A RIDE</p>
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-left">Going somewhere but hate to travel alone - just post your ride details and publish it.</p>
@@ -58,7 +67,11 @@ function Landing2(){
                     </div>
                     <p className="font-bold">INSTANT NOTIFICATIONS</p>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <p className="max-w-[45ch] text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
+=======
+                    <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
+>>>>>>> bb5cb46f7e3f22eb3ddc9ebbbe1ad9860d3a8d14
 =======
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
 >>>>>>> bb5cb46f7e3f22eb3ddc9ebbbe1ad9860d3a8d14
@@ -71,8 +84,13 @@ function Landing2(){
                         </div>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <p className="font-bold">CASHLESS PAYMENTS</p>
                     <p className="max-w-[45ch] text-leftt">Payments made easy by using yoiur own Wallet-  no more cash to carry </p>
+=======
+                    <p className="font-bold">CASHLESS PAYMENT</p>
+                    <p className="text-gray-500 max-w-[45ch] text-center md:text-leftt">Payment made easy by using your own Wallet - no more cash to carry</p>
+>>>>>>> bb5cb46f7e3f22eb3ddc9ebbbe1ad9860d3a8d14
 =======
                     <p className="font-bold">CASHLESS PAYMENT</p>
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-leftt">Payment made easy by using your own Wallet - no more cash to carry</p>
