@@ -5,7 +5,7 @@ import money from "../assets/Money.png";
 import support from "../assets/Support.png";
 function Landing2(){
     return(
-        <>
+        <div>
             <div className="text-center flex flex-col items-center">
                 <p className="p-10 font-bold uppercase text-4xl lg:text-[4rem]">How <span className="text-green-400">CoRide</span> works</p>
                 <p className="max-w-[45ch]">Download and install the CoRide app. Enter your phone number and make your user account. when approved you may start driving.</p>
@@ -18,7 +18,7 @@ function Landing2(){
                             <p className="text-green-400 text-3xl font-bold">1</p>
                         </div>
                     </div>
-                    <p>REQUEST A RIDE</p>
+                    <p className="font-bold">REQUEST A RIDE</p>
                     <p className="max-w-[45ch] text-right">Have to reach office or going for shopping ? Just put your current location and destination and search a ride that suits you</p>
                 </div>
                 <div className="grid justify-items-start content-start">
@@ -28,7 +28,7 @@ function Landing2(){
                             <p className="text-green-400 text-3xl font-bold">2</p>
                         </div>
                     </div>
-                    <p>REQUEST A RIDE</p>
+                    <p className="font-bold">POST A RIDE </p>
                     <p className="max-w-[45ch] text-left">Have to reach office or going for shopping ? Just put your current location and destination and search a ride that suits you</p>
                 </div>
                 
@@ -45,7 +45,7 @@ function Landing2(){
                             <p className="text-green-400 text-3xl font-bold">3</p>
                         </div>
                     </div>
-                    <p>INSTANT NOTIFICATIONS</p>
+                    <p className="font-bold">INSTANT NOTIFICATIONS</p>
                     <p className="max-w-[45ch] text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
                 </div>
                 <div className="grid justify-items-start content-start">
@@ -55,8 +55,8 @@ function Landing2(){
                             <p className="text-green-400 text-3xl font-bold">4</p>
                         </div>
                     </div>
-                    <p>INSTANT NOTIFICATIONS</p>
-                    <p className="max-w-[45ch] text-leftt">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
+                    <p className="font-bold">CASHLESS PAYMENTS</p>
+                    <p className="max-w-[45ch] text-leftt">Payments made easy by using yoiur own Wallet-  no more cash to carry </p>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@ function Landing2(){
                     </div>
                 </div>                
             </div>
-        </>
+        </div>
     )
 }
 
