@@ -19,8 +19,6 @@ function Landing2(){
                         </div>
                     </div>
                     <p className="font-bold">REQUEST A RIDE</p>
-                    <p className="max-w-[45ch] text-right">Have to reach office or going for shopping ? Just put your current location and destination and search a ride that suits you</p>
-                    <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Have to reach office or going for shopping ?<br></br> Just put your current location and destination and search a ride that suits you</p>
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Have to reach office or going for shopping ?<br></br> Just put your current location and destination and search a ride that suits you</p>
                 </div>
                 <div className="grid justify-items-center md:justify-items-start content-start">
@@ -30,10 +28,6 @@ function Landing2(){
                             <p className="text-green-400 text-3xl font-bold">2</p>
                         </div>
                     </div>
-                    <p className="font-bold">POST A RIDE </p>
-                    <p className="max-w-[45ch] text-left">Have to reach office or going for shopping ? Just put your current location and destination and search a ride that suits you</p>
-                    <p className="font-bold">POST A RIDE</p>
-                    <p className="text-gray-500 max-w-[45ch] text-center md:text-left">Going somewhere but hate to travel alone - just post your ride details and publish it.</p>
                     <p className="font-bold">POST A RIDE</p>
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-left">Going somewhere but hate to travel alone - just post your ride details and publish it.</p>
                 </div>
@@ -54,9 +48,6 @@ function Landing2(){
                         </div>
                     </div>
                     <p className="font-bold">INSTANT NOTIFICATIONS</p>
-                    <p className="max-w-[45ch] text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
-                    <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
-
                     <p className="text-gray-500 max-w-[45ch] text-center md:text-right">Get instant notifications for your rides and be in contact with fellow riders all the time</p>
                 </div>
                 <div className="grid justify-items-center md:justify-items-start content-start">
@@ -66,12 +57,8 @@ function Landing2(){
                             <p className="text-green-400 text-3xl font-bold">4</p>
                         </div>
                     </div>
-                    <p className="font-bold">CASHLESS PAYMENTS</p>
-                    <p className="max-w-[45ch] text-leftt">Payments made easy by using yoiur own Wallet-  no more cash to carry </p>
                     <p className="font-bold">CASHLESS PAYMENT</p>
-                    <p className="text-gray-500 max-w-[45ch] text-center md:text-leftt">Payment made easy by using your own Wallet - no more cash to carry</p>
-                    <p className="font-bold">CASHLESS PAYMENT</p>
-                    <p className="text-gray-500 max-w-[45ch] text-center md:text-leftt">Payment made easy by using your own Wallet - no more cash to carry</p>
+                    <p className="text-gray-500 max-w-[45ch] text-center md:text-left">Payment made easy by using your own Wallet - no more cash to carry</p>
                 </div>
             </div>
 

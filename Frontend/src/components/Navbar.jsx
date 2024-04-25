@@ -15,8 +15,8 @@ function Navbar() {
         </div>
         <div className=' px-4'>
             <div className={`hidden md:flex  md:gap-10 items-center`}>
-                <Link to="#">Home</Link>
-                <Link>How CoRide Works</Link>
+                <Link to="/">Home</Link>
+                <Link to="/create-ride">Create ride</Link>
                 <Link>CoRide Benefits</Link>
                 <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200'>Help Center</button>
             </div>
@@ -27,12 +27,12 @@ function Navbar() {
         {/*  responsive navbar  */}
         {
             navbarVisible&&(
-                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white pb-10'>
+                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white z-10 pb-10'>
                     <div className=' relative w-full h-full'>
-                        <div className="cross absolute top-4 right-14 font-semibold text-2xl" onClick={handleNavbar}>X</div>
-                        <div className="link pt-20  flex flex-col gap-4">
-                            <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'> Home </Link>
-                            <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'>How CoRide Works</Link>
+                        <div className="cross absolute top-4 right-14 font-semibold text-2xl z-50" onClick={handleNavbar}>X</div>
+                        <div className="link pt-20 flex flex-col gap-4 relative">
+                            <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/"> Home </Link>
+                            <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/create-ride">Create ride</Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'>CoRide Benefits </Link>
                             <button className='bg-[#86bd81]  mx-4 w-[182px] h-[51px] rounded-md hover:bg-[#79936e] text-white'>Help Center</button>
                         </div>

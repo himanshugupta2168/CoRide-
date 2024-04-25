@@ -3,13 +3,15 @@ import Landing from "../components/Landing"
 import Landing2 from "../components/Landing2"
 import Navbar from "../components/Navbar"
 import SearchRide from "../components/SearchRide"
+import TripInputs from "../components/TripInputs"
 
 function Home() {
   return (
     <div className="bg-neutral-100">
         <Navbar/>
         <Landing/>
-        <SearchRide/>
+        {/* <SearchRide/> */}
+        <TripInputs/>
         <Landing2/>
         <Footer/>
     </div>

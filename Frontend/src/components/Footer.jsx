@@ -5,7 +5,7 @@ import { InlineIcon } from '@iconify/react';
 function Footer(){
     return(
         <div className="mt-10 pb-10 divide-y divide-slate-300 bg-white">
-            <div className="flex flex-col sm:flex-row gap-20 p-10">
+            <div className="flex flex-col sm:flex-row gap-20 p-10 flex-wrap">
                 <div>
                     <img src={logo} alt="logo" className="h-[50px]" />
                     <Link className="text-gray-400 hover:text-black">Visit help center</Link>
@@ -38,6 +38,10 @@ function Footer(){
                         </Link>
                     </div>
                 </div>
+                <div className="relative min-[1101px]:ml-auto">
+                    <NewsletterInput/>
+                    <button type="button" className="text-xl bg-slate-900 px-4 py-2 rounded-lg text-white ml-2">Signup to newsletter</button>
+                </div>
             </div>
             <div className="flex justify-between px-10 pt-5">
                 <p>&copy; CoRide, 2024</p>
@@ -47,10 +51,19 @@ function Footer(){
                     <Link><li className="hover:text-green-400">Terms</li></Link>
                 </ul>
             </div>
+            
         </div>
     )
 }
 
+function NewsletterInput(){
+    return(
+        <div className="border-black m-2 w-ful relative">
+            <input type="email" placeholder="Enter your mail..." className="border-b border-white focus:border-black focus:outline-none focus:ring-0 py-3 px-5 pl-2 text-3xl"/>
+        </div>
+        //  
+    )
+}
 function Icon({name}){
     return (
         <div className="flex p-3 hover:bg-gray-200 rounded">
