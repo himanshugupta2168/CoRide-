@@ -3,11 +3,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Coride_Logo from "./../assets/Coride_Logo.png"
 import {Link} from "react-router-dom"
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 function Navbar() {
     const [navbarVisible, setNavBarVisible]= useState(false);
     const handleNavbar=()=>{
         setNavBarVisible(!navbarVisible);
     }
+    const {user, loginWithPopup, logout}= useAuth0();
   return (
     <div className='flex items-center justify-between w-full h-[100px] px-10 overflow-hidden bg-white'>
         <div>
@@ -18,7 +20,7 @@ function Navbar() {
                 <Link to="/">Home</Link>
                 <Link to="/create-ride">Create ride</Link>
                 <Link>CoRide Benefits</Link>
-                <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200'>Help Center</button>
+                <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={(e)=>loginWithPopup()}>Get Started</button>
             </div>
             <div className={`md:hidden ${navbarVisible?"hidden":"block"}`} onClick={handleNavbar}>
                 <GiHamburgerMenu/>
@@ -34,7 +36,7 @@ function Navbar() {
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/"> Home </Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/create-ride">Create ride</Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'>CoRide Benefits </Link>
-                            <button className='bg-[#86bd81]  mx-4 w-[182px] h-[51px] rounded-md hover:bg-[#79936e] text-white'>Help Center</button>
+                            <button className='bg-[#86bd81]  mx-4 w-[182px] h-[51px] rounded-md hover:bg-[#79936e] text-white'>Get Started</button>
                         </div>
                     </div>
                 </div>
