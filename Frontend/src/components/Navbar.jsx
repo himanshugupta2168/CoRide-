@@ -9,7 +9,27 @@ function Navbar() {
     const handleNavbar=()=>{
         setNavBarVisible(!navbarVisible);
     }
-    const {user, loginWithPopup, logout}= useAuth0();
+    const {loginWithRedirect,isAuthenticated,logout} = useAuth0();
+    const handleLogin = async () =>{
+        const link = (window.location.href).replace("http://localhost:5173","");
+        console.log(link);
+        await loginWithRedirect({
+            appState: {
+                returnTo: `${link}`
+            },
+            authorizationParams: {
+                screen_hint: "signup",
+            }
+        });
+    }
+    const handleLogout = () => {
+        logout({
+            logoutParams: {
+                returnTo: window.location.origin,
+            },
+        });
+    };
+    // const {user, loginWithPopup, logout}= useAuth0();
   return (
     <div className='flex items-center justify-between w-full h-[100px] px-10 overflow-hidden bg-white'>
         <div>
@@ -20,7 +40,14 @@ function Navbar() {
                 <Link to="/">Home</Link>
                 <Link to="/create-ride">Create ride</Link>
                 <Link>CoRide Benefits</Link>
-                <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={(e)=>loginWithPopup()}>Get Started</button>
+                { !isAuthenticated && (
+                    <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={handleLogin}>Get Started</button>
+                )}
+                { isAuthenticated && (
+                    <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={handleLogout}>Log out</button>
+                )}
+
+                {/* <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={(e)=>loginWithPopup()}>Get Started</button> */}
             </div>
             <div className={`md:hidden ${navbarVisible?"hidden":"block"}`} onClick={handleNavbar}>
                 <GiHamburgerMenu/>
@@ -36,7 +63,12 @@ function Navbar() {
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/"> Home </Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/create-ride">Create ride</Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'>CoRide Benefits </Link>
-                            <button className='bg-[#86bd81]  mx-4 w-[182px] h-[51px] rounded-md hover:bg-[#79936e] text-white'>Get Started</button>
+                            { !isAuthenticated && (
+                                <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={handleLogin}>Get Started</button>
+                            )}
+                            { isAuthenticated && (
+                                <button className='bg-[#86bd81] w-[182px] h-[51px] rounded-md hover:bg-[#79936e] hover:font-semibold text-white duration-200' onClick={handleLogout}>Log out</button>
+                            )}
                         </div>
                     </div>
                 </div>
