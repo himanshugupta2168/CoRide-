@@ -15,13 +15,13 @@ datasource db {
 
 model User {
   userId                 Int               @id @default(autoincrement())
-  userName               String            @unique
-  fullName               String
-  gender                 String
+  userName               String?            @unique
+  fullName               String?
+  gender                 String?
   profile_picture        String?
   email                  String
-  phoneNumber            Int
-  address                String
+  phoneNumber            Int?
+  address                String?
   Occupation             String?
   Ratings                Float             @default(3.00)
   reviews                Review[]
@@ -63,6 +63,7 @@ model Ride {
   vehicle              Vehicle           @relation(fields: [vehicleId], references: [vehicleId])
   vehicleId            Int
   origin               String
+  price                Float
   wayPoints            wayPoint[]
   destination          String
   departureTime        DateTime
