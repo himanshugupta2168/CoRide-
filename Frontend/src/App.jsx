@@ -4,6 +4,7 @@ import {Routes, Route} from "react-router-dom"
 import Home from './pages/Home'
 import CreateRide from './pages/CreateRide'
 import PageLoader from './pages/PageLoader'
+import Profile from './pages/Profile'
 import { CallbackPage } from './pages/Callback'
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -18,7 +19,7 @@ function App() {
       </div>
     )
   }
-  console.log(user);
+  // console.log(user);
 
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/create-ride' element={<CreateRide/>} />
           <Route path='/callback' element={<CallbackPage/>} />
+          <Route path='/profile' element={<Profile/>}/>
         </Routes>
       </RecoilRoot>
     </>

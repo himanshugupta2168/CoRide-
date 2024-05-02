@@ -4,9 +4,10 @@ const prisma = new PrismaClient();
 
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
-
-    // Check if the user already exists
+    // console.log(req.body);
+    // return res.send("hello");
+    const {nickname, name, picture, email}= req.body.body;
+    // // Check if the user already exist
     const user = await prisma.user.findFirst({
       where: {
         email: email,
@@ -18,6 +19,9 @@ export const signUp = async (req: Request, res: Response) => {
       await prisma.user.create({
         data: {
           email: email,
+          fullName:nickname, 
+          userName:name,
+          profile_picture:picture,
         },
       });
       return res.status(200).json({
@@ -26,7 +30,7 @@ export const signUp = async (req: Request, res: Response) => {
       });
     } else {
       // If the user already exists, return a message indicating that
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "User already exists",
       });
