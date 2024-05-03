@@ -13,98 +13,99 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  userId Int @id @default(autoincrement())
-  userName String @unique
-  fullName String 
-  gender String
-  profile_picture String?
-  email String
-  phoneNumber Int
-  address String 
-  Occupation String?
-  Ratings Float @default(3.00)
-  reviews Review[]
-  joinedOn DateTime @default(now())
-  accountStatus String @default("banned")
-  drivingLiscenceNumber Int?
+model User {
+  userId                 Int               @id @default(autoincrement())
+  userName               String?            @unique
+  fullName               String?
+  gender                 String?
+  profile_picture        String?
+  email                  String
+  phoneNumber            Int?
+  address                String?
+  Occupation             String?
+  Ratings                Float             @default(3.00)
+  reviews                Review[]
+  joinedOn               DateTime          @default(now())
+  accountStatus          String            @default("banned")
+  drivingLiscenceNumber  Int?
   drivingLiscencePicture String?
-  vehicles Vehicle[]
-  offeredRides Ride[] @relation("asDriver")
-  joinedRides Ride[] @relation("asPassenger")
-  requestedRides PassengerStatus[]
-  bookings Booking[]
+  vehicles               Vehicle[]
+  offeredRides           Ride[]            @relation("asDriver")
+  joinedRides            Ride[]            @relation("asPassenger")
+  requestedRides         PassengerStatus[]
+  bookings               Booking[]
 }
-model Review{
-  reviewId Int @id @default(autoincrement())
+
+model Review {
+  reviewId   Int      @id @default(autoincrement())
   reviewText String
-  rating Float 
-  createdAt DateTime @default(now())
-  ReviewFor User @relation(fields: [userId], references: [userId])
-  userId Int
+  rating     Float
+  createdAt  DateTime @default(now())
+  ReviewFor  User     @relation(fields: [userId], references: [userId])
+  userId     Int
 }
 
-model Vehicle{
-  vehicleId Int @id @default(autoincrement())
-  vehicleOwner User @relation(fields: [vehicleId], references: [userId])
-  Company String
-  model String
+model Vehicle {
+  vehicleId    Int       @id @default(autoincrement())
+  vehicleOwner User      @relation(fields: [vehicleId], references: [userId])
+  Company      String
+  model        String
   purchaseYear DateTime?
-  vehicleType String 
-  capacity Int
-  trips Ride[]
+  vehicleType  String
+  capacity     Int
+  trips        Ride[]
 }
 
-
-model Ride{
-  rideId Int @id @default(autoincrement())
-  driver User @relation("asDriver",fields: [driverId], references: [userId])
-  driverId Int
-  vehicle Vehicle @relation(fields: [vehicleId], references: [vehicleId])
-  vehicleId Int
-  origin String
-  wayPoints wayPoint[]
-  destination String
-  departureTime DateTime
+model Ride {
+  rideId               Int               @id @default(autoincrement())
+  driver               User              @relation("asDriver", fields: [driverId], references: [userId])
+  driverId             Int
+  vehicle              Vehicle           @relation(fields: [vehicleId], references: [vehicleId])
+  vehicleId            Int
+  origin               String
+  price                Float
+  wayPoints            wayPoint[]
+  destination          String
+  departureTime        DateTime
   EstimatedArrivalTime DateTime
-  seatsRemaining Int
-  Passengers User[] @relation("asPassenger")
-  passengersApplied PassengerStatus[]
-  tripBookings Booking[]
+  seatsRemaining       Int
+  Passengers           User[]            @relation("asPassenger")
+  passengersApplied    PassengerStatus[]
+  tripBookings         Booking[]
 }
 
-model wayPoint{
-  wayPointId Int @id @default(autoincrement())
-  Ride Ride @relation(fields: [rideId], references: [rideId])
-  rideId Int
-  wayPointLocation String 
-  wayPointTime DateTime
+model wayPoint {
+  wayPointId              Int       @id @default(autoincrement())
+  Ride                    Ride      @relation(fields: [rideId], references: [rideId])
+  rideId                  Int
+  wayPointLocation        String
+  wayPointTime            DateTime
   numberOfSeatsAtWayPoint Int
-  bookingStarts Booking[] @relation("PickUpWayPoint")
-  bookingEnds Booking[] @relation("DropOffWayPoint")
-  
+  bookingStarts           Booking[] @relation("PickUpWayPoint")
+  bookingEnds             Booking[] @relation("DropOffWayPoint")
 }
 
 model PassengerStatus {
-  passenger Ride @relation(fields: [passengerStatusId], references: [rideId])
-  passengerStatusId Int @id @default(autoincrement())
-  user User @relation(fields: [requestedUserId], references: [userId])
-  requestedUserId Int
-  status String @default("pending")
+  passenger           Ride      @relation(fields: [passengerStatusId], references: [rideId])
+  passengerStatusId   Int       @id @default(autoincrement())
+  user                User      @relation(fields: [requestedUserId], references: [userId])
+  requestedUserId     Int
+  status              String    @default("pending")
   bookingconfirmation Booking[]
 }
+
 model Booking {
-  bookingId       Int            @id @default(autoincrement())
-  rider           User           @relation(fields: [riderId], references: [userId]) // Rider who made the booking
-  riderId         Int
-  ride            Ride           @relation(fields: [rideId], references: [rideId]) // Ride being booked
-  rideId          Int
-  pickUp          wayPoint       @relation("PickUpWayPoint", fields: [pickUpId], references: [wayPointId]) // Pick-up location
-  pickUpId        Int
-  dropOff         wayPoint       @relation("DropOffWayPoint", fields: [dropOffId], references: [wayPointId]) // Drop-off location
-  dropOffId       Int
-  bookingStatus   String         // Booking status: confirmed, pending, rejected, cancelled
-  paymentStatus   String         // Payment status: confirmed, rejected
-  passengerStatus PassengerStatus? @relation(fields: [passengerStatusId], references: [passengerStatusId]) // Passenger status associated with the booking
+  bookingId         Int              @id @default(autoincrement())
+  rider             User             @relation(fields: [riderId], references: [userId]) // Rider who made the booking
+  riderId           Int
+  ride              Ride             @relation(fields: [rideId], references: [rideId]) // Ride being booked
+  rideId            Int
+  pickUp            wayPoint         @relation("PickUpWayPoint", fields: [pickUpId], references: [wayPointId]) // Pick-up location
+  pickUpId          Int
+  dropOff           wayPoint         @relation("DropOffWayPoint", fields: [dropOffId], references: [wayPointId]) // Drop-off location
+  dropOffId         Int
+  bookingStatus     String // Booking status: confirmed, pending, rejected, cancelled
+  paymentStatus     String // Payment status: confirmed, rejected
+  passengerStatus   PassengerStatus? @relation(fields: [passengerStatusId], references: [passengerStatusId]) // Passenger status associated with the booking
   passengerStatusId Int?
 }
