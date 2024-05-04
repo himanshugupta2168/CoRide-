@@ -2,14 +2,26 @@
 import Calender from './Calender';
 import { InlineIcon } from '@iconify/react';
 import { CitySearch,PassengerCount } from './TripInputs';
+import { useAuth0 } from '@auth0/auth0-react';
+
+
 
 export default function CreateRideComponent(){
+    const{ isAuthenticated,loginWithPopup,user } = useAuth0();
+    const publishRideHandler = async()=>{
+        if(!isAuthenticated){
+            await loginWithPopup();
+        }else{
+            // console.log(user);
+            
+        }
+    }
     return(
         <div className='relative'>
             <div className="rounded-lg bg-white shadow-md">
                 <PublishRideInputs/>
                 <div>
-                    <button className='bg-green-500 w-full py-3 px-4 rounded-b-lg text-xl hover:bg-green-600 font-semibold' type='button'>Publish ride</button>
+                    <button className='bg-green-500 w-full py-3 px-4 rounded-b-lg text-xl hover:bg-green-600 font-semibold' type='button' onClick={publishRideHandler}>Publish ride</button>
                 </div>
             </div>
         </div>

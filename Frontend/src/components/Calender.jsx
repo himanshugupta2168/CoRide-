@@ -6,7 +6,7 @@ const Calender = () => {
 	const [show, setShow] = useState(false)
 	const date = new Date();
 	date.setDate(date.getDate()-1);
-	console.log(date);
+	// console.log(date);
 
 	const options= {
 		autoHide: true,

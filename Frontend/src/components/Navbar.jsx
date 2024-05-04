@@ -7,19 +7,24 @@ import axios from "axios"
 import { useAuth0 } from '@auth0/auth0-react';
 function Navbar() {
     const [navbarVisible, setNavBarVisible]= useState(false);
+    const {loginWithRedirect,user,isAuthenticated,logout,getAccessTokenSilently} = useAuth0();
+    
+    if(isAuthenticated){
+        const token = async()=>{
+            const t = await getAccessTokenSilently();
+            // console.log(t);
+        }
+        token();
+    }
     const handleNavbar=()=>{
         setNavBarVisible(!navbarVisible);
     }
-    const {loginWithRedirect,user,isAuthenticated,logout} = useAuth0();
     const handleLogin = async () =>{
         const link = (window.location.href).replace("http://localhost:5173","");
-        console.log(link);
+        // console.log(link);
         await loginWithRedirect({
             appState: {
                 returnTo: `${link}`
-            },
-            authorizationParams: {
-                screen_hint: "signup",
             }
         });
     }
@@ -33,7 +38,12 @@ function Navbar() {
     useEffect(()=>{
         const checkUser= async()=>{
             if (user){
-                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,{body:user});
+                console.log(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user);
+
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user)
+                .catch((err)=>{
+                    console.log(err.message);
+                })
             }
         }
         checkUser();

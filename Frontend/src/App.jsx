@@ -7,12 +7,17 @@ import PageLoader from './pages/PageLoader'
 import Profile from './pages/Profile'
 import { CallbackPage } from './pages/Callback'
 import { useAuth0 } from '@auth0/auth0-react'
+import { AuthenticationGuard } from './components/AuthenticationGuard'
+import { useLocation } from 'react-router-dom';
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
+  const {pathname} = useLocation();
+  
   const {isLoading,user} = useAuth0();
+  // console.log(pathname);
 
-  if(isLoading){
+  if(isLoading && pathname!="/create-ride"){
     return(
       <div>
         <PageLoader />
@@ -28,7 +33,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/create-ride' element={<CreateRide/>} />
           <Route path='/callback' element={<CallbackPage/>} />
-          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/profile' element={<AuthenticationGuard component={Profile} />}/>
         </Routes>
       </RecoilRoot>
     </>

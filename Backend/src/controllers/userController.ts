@@ -3,10 +3,11 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const signUp = async (req: Request, res: Response) => {
+  // console.log("hello");
   try {
-    // console.log(req.body);
+    console.log(req.body);
     // return res.send("hello");
-    const {nickname, name, picture, email}= req.body.body;
+    const {nickname, name, picture, email}= req.body;
     // // Check if the user already exist
     const user = await prisma.user.findFirst({
       where: {

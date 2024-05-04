@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar"
 import { useAuth0 } from '@auth0/auth0-react'
 function Profile() {
   const {user}= useAuth0();
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <Navbar/>
