@@ -22,9 +22,9 @@ const Calender = () => {
 		theme: {
 			background: "dark:bg-white",
 			todayBtn: "",
-			clearBtn: "bg-red-500 dark:bg-red-500 border-none hover:dark:bg-red-600",
+			clearBtn: "bg-red-500 dark:bg-red-500 border-none hover:dark:bg-red-600 hover:bg-red-600",
 			icons: "bg-white dark:bg-white text-black dark:text-black hover:bg-slate-200 hover:dark:bg-slate-200",
-			text: "text-slate-500 dark:text-slate-500 hover:bg-slate-200 hover:dark:bg-slate-200",
+			text: "text-black dark:text-white hover:bg-slate-200 hover:dark:bg-slate-200",
 			disabledText: "bg-white text-black dark:text-black hover:bg-slate-300 hover:dark:bg-slate-300 text-slate-200 dark:text-slate-200",
 			input: "bg-white text-black dark:bg-white dark:text-black border-none hover:bg-slate-100",
 			inputIcon: "text-black dark:text-black",

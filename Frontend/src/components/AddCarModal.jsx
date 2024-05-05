@@ -1,4 +1,3 @@
-
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { InlineIcon } from '@iconify/react';
@@ -81,7 +80,7 @@ export function AddCarModal({onSubmit}) {
                                 </div>
                                 
                                 <div className="w-full mt-4">
-                                  <Button type="submit">Log in to your account</Button>
+                                  <Button type="submit">Add car</Button>
                                 </div>
                 </form>
           </div>

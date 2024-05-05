@@ -56,6 +56,11 @@ function Navbar() {
         <div className=' px-4'>
             <div className={`hidden md:flex  md:gap-10 items-center`}>
                 <Link to="/">Home</Link>
+                {
+                    isAuthenticated && (
+                        <Link to='/myRides'>My Rides</Link>
+                    )
+                }
                 <Link to="/create-ride">Create ride</Link>
                 <Link to={`${isAuthenticated?"/profile":"/"}`}>{isAuthenticated?"Profile":"CoRide Benefits"}</Link>
                 { !isAuthenticated && (
@@ -79,6 +84,11 @@ function Navbar() {
                         <div className="cross absolute top-4 right-14 font-semibold text-2xl z-50" onClick={handleNavbar}>X</div>
                         <div className="link pt-20 flex flex-col gap-4 relative">
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/"> Home </Link>
+                            {
+                                isAuthenticated && (
+                                    <Link to='/myRides' className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'>My Rides</Link>
+                                )
+                            }
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/create-ride">Create ride</Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to={`${isAuthenticated?"/profile":"/"}`}>{isAuthenticated?"Profile":"CoRide Benefits" }</Link>
                             { !isAuthenticated && (

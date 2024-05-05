@@ -13,9 +13,6 @@ export default function CreateRideComponent(){
     const publishRideHandler = async()=>{
         if(!isAuthenticated){
             await loginWithPopup();
-        }else{
-            // console.log(user);
-            
         }
     }
     return(
@@ -38,7 +35,7 @@ function TimePicker({title}){
             <label htmlFor={title.split(" ")[0]} className='text-slate-600'>{title}</label>
                 <div>
                     <div className="w- relative flex">
-                        <input type="time" id={title.split(" ")[0]} className="w-full text-lg rounded-md hover:bg-slate-100 mt-2 p-1" required />
+                        <input type="time" id={title.split(" ")[0]} className="w-full text-lg rounded-md hover:bg-slate-100 mt-2 p-1 border-transparent rounded-md focus:outline-none focus:border-transparent focus:ring-0" required />
                     </div>
                 </div>
         </div>
@@ -71,7 +68,7 @@ function PublishRideInputs(){
                             <InlineIcon icon={"fluent:currency-dollar-rupee-24-regular"} >{' '}</InlineIcon>
                         </label>
                     </div>
-                    <input type="number" name="fare" id="fare" className='pl-[28px] py-2 p-1 rounded-md w-full text-md hover:bg-slate-100 font-semibold' min="1" max="10000" />
+                    <input type="number" name="fare" id="fare" className='pl-[28px] py-2 p-1 rounded-md w-full text-md hover:bg-slate-100 font-semibold border-transparent rounded-md focus:outline-none focus:border-transparent focus:ring-0' min="1" max="10000" required/>
                 </div>
             </div>
         </div>
@@ -84,7 +81,7 @@ function VehicleOptions(){
     useEffect(()=>{
         if(user){
             (async ()=>{
-                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/getCars`,{email:user.email})
+                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/getCars?email=${user.email}`)
                 .catch(e=>{
                     console.error(e);
                 });
@@ -98,8 +95,8 @@ function VehicleOptions(){
     return(
         <div className='flex gap-4 px-3 my-2 items-end'>
             <div className='grow'>
-                <label htmlFor="hs-hidden-select" className="Select a car text-slate-600">Select a car</label>
-                <select id="hs-hidden-select" required className="text-lg rounded-md hover:bg-slate-100 py-2 block w-full mt-2">
+                <label htmlFor="hs-hidden-select" className="text-slate-600 ">Select a car</label>
+                <select id="hs-hidden-select" required className="rounded-md hover:bg-slate-100 py-2 block w-full mt-2">
                     {!cars.length? <option value="" disabled>You don't have any cars added</option> :cars.map((e)=>{
                         return(
                             <option value={e.vehicleId} key={e.vehicleId}>{e.Company} {e.model}</option>

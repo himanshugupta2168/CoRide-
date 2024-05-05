@@ -49,8 +49,10 @@ export const signUp = async (req: Request, res: Response) => {
 export const getCars = async (req: Request, res:Response) => {
 
   try{
-    const {email} = req.body;
+    const email: string | undefined = req.query.email as string | undefined;
 
+    console.log(req.body);
+    // await prisma.user.findFirst()
     const user = await prisma.user.findFirst({
       where:{
         email
@@ -59,7 +61,7 @@ export const getCars = async (req: Request, res:Response) => {
         userId:true
       }
     })
-
+    console.log(user);
     if(!user){
       return res.status(404).json({
         success: false,
@@ -68,7 +70,7 @@ export const getCars = async (req: Request, res:Response) => {
     } else{
       const cars = await prisma.vehicle.findMany({
         where:{
-          vehicleId:user.userId
+          vehicleOwnerUserId:user.userId
         }
       });
       if(!cars){
@@ -96,7 +98,7 @@ export const setCars = async (req:Request, res:Response) => {
   try {
     const {email} = req.body.user;
     const{company,model,type,purchaseYear,capacity} = req.body.values;
-    // console.log("-------------------------------------",req.body)
+
     const u = await prisma.user.findFirst({
       where:{
         email
@@ -105,12 +107,13 @@ export const setCars = async (req:Request, res:Response) => {
         userId:true
       }
     });
-    console.log("-------------------------------------",{
-      Company:company,
-      model,
-      vehicleType:type,
-      purchaseYear:+purchaseYear,
-      capacity: +capacity,})
+    // console.log("-------------------------------------",{
+    //   Company:company,
+    //   model,
+    //   vehicleType:type,
+    //   purchaseYear:+purchaseYear,
+    //   capacity: +capacity,}
+    // )
 
     if(!u){
       return res.status(404).json({

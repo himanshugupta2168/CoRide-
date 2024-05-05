@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import CreateRide from './pages/CreateRide'
 import PageLoader from './pages/PageLoader'
 import Profile from './pages/Profile'
+import MyRides from './pages/MyRides'
 import { CallbackPage } from './pages/Callback'
 import { useAuth0 } from '@auth0/auth0-react'
 import { AuthenticationGuard } from './components/AuthenticationGuard'
@@ -34,6 +35,7 @@ function App() {
           <Route path='/create-ride' element={<CreateRide/>} />
           <Route path='/callback' element={<CallbackPage/>} />
           <Route path='/profile' element={<AuthenticationGuard component={Profile} />}/>
+          <Route path='/myRides' element={<AuthenticationGuard component={MyRides} />}/>
         </Routes>
       </RecoilRoot>
     </>
