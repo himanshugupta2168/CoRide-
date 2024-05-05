@@ -11,7 +11,7 @@ import { AuthenticationGuard } from './components/AuthenticationGuard'
 import { useLocation } from 'react-router-dom';
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
   const {pathname} = useLocation();
   
   const {isLoading,user} = useAuth0();

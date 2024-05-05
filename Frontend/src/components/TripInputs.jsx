@@ -35,7 +35,7 @@ export function CitySearch({placeholder}){
                         <InlineIcon icon={"fluent:circle-32-regular"} >{' '}</InlineIcon>
                     </div>
                 </div>
-                <input type="text" name="" id="" placeholder={placeholder} className='pl-[28px] py-2 rounded-md hover:bg-slate-100 w-full'/>
+                <input type="text" name="" id="" required placeholder={placeholder} className='pl-[28px] py-2 rounded-md hover:bg-slate-100 w-full'/>
             </div>
         </div>
     )

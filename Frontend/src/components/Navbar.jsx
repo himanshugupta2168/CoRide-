@@ -38,7 +38,7 @@ function Navbar() {
     useEffect(()=>{
         const checkUser= async()=>{
             if (user){
-                console.log(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user);
+                // console.log(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user);
 
                 await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user)
                 .catch((err)=>{

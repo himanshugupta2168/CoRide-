@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export const signUp = async (req: Request, res: Response) => {
   // console.log("hello");
   try {
-    console.log(req.body);
+    // console.log(req.body);
     // return res.send("hello");
     const {nickname, name, picture, email}= req.body;
     // // Check if the user already exist
@@ -44,3 +44,102 @@ export const signUp = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+export const getCars = async (req: Request, res:Response) => {
+
+  try{
+    const {email} = req.body;
+
+    const user = await prisma.user.findFirst({
+      where:{
+        email
+      },
+      select:{
+        userId:true
+      }
+    })
+
+    if(!user){
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      })
+    } else{
+      const cars = await prisma.vehicle.findMany({
+        where:{
+          vehicleId:user.userId
+        }
+      });
+      if(!cars){
+        return res.status(404).json({
+          success: false,
+          message: "No cars not found"
+        })
+      } else{
+        return res.status(200).json({
+          success: true,
+          cars
+        });
+      }
+    }
+  } catch(e:any){
+    res.status(500).json({
+      success: false,
+      message: "User and DB sync error",
+      error: e.message,
+    })
+  }
+}
+
+export const setCars = async (req:Request, res:Response) => {
+  try {
+    const {email} = req.body.user;
+    const{company,model,type,purchaseYear,capacity} = req.body.values;
+    // console.log("-------------------------------------",req.body)
+    const u = await prisma.user.findFirst({
+      where:{
+        email
+      },
+      select:{
+        userId:true
+      }
+    });
+    console.log("-------------------------------------",{
+      Company:company,
+      model,
+      vehicleType:type,
+      purchaseYear:+purchaseYear,
+      capacity: +capacity,})
+
+    if(!u){
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      })
+    }
+    
+    const newVehicle = await prisma.vehicle.create({
+      data:{
+        Company:company,
+        model,
+        vehicleType:type,
+        purchaseYear:+purchaseYear,
+        capacity: +capacity,
+        vehicleOwner:{
+          connect: {
+            userId:u.userId
+          }
+        }
+      }
+    });
+    return res.status(200).json({
+      message:"Vehicle added successfully"
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error
+    })
+    // console.log("uesr not found");
+  }
+}

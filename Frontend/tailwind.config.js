@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+import flowbitePlugin from 'flowbite-react/tailwind'
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/tailwind-datepicker-react/dist/**/*.js",
+    flowbitePlugin.content()
   ],
   theme: {
     extend: {
@@ -14,6 +16,9 @@ export default {
     },
   },
 
-  plugins: [],
+  plugins: [
+    flowbitePlugin.plugin()
+
+  ],
 }
 
