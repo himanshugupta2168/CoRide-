@@ -36,6 +36,7 @@ function App() {
           <Route path='/callback' element={<CallbackPage/>} />
           <Route path='/profile' element={<AuthenticationGuard component={Profile} />}/>
           <Route path='/myRides' element={<AuthenticationGuard component={MyRides} />}/>
+          <Route path='/*' element={<Home/>} />
         </Routes>
       </RecoilRoot>
     </>

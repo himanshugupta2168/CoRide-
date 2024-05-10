@@ -1,9 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DatePicker from "tailwind-datepicker-react"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { publishDateAtom } from "../atoms/publishRideAtoms";
 
-
-const Calender = () => {
+// const Calender = () => {
+// 	return (
+// 		<LocalizationProvider dateAdapter={AdapterDayjs}>
+// 			<DatePicker />
+// 		</LocalizationProvider>
+// 	);
+// }
+const Calender = ({atomName}) => {
 	const [show, setShow] = useState(false)
+	const atomSetter = useSetRecoilState(atomName);
+	const atomGetter = useRecoilValue(atomName);
+	useEffect(()=>{
+		console.log(atomGetter)
+	},[atomGetter]);
 	const date = new Date();
 	date.setDate(date.getDate()-1);
 	// console.log(date);
@@ -45,7 +61,7 @@ const Calender = () => {
 	return (
 			<div className="">
 				<div className="py-2 lg:mx-2">
-					<DatePicker show={show} setShow={(state) => setShow(state)} options={options}  />
+					<DatePicker show={show} setShow={(state) => setShow(state)} options={options} onChange={atomSetter} />
 				</div>
 			</div>
 	)

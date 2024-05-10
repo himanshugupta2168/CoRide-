@@ -69,7 +69,7 @@ model Ride {
   destination          String
   departureTime        DateTime
   EstimatedArrivalTime DateTime
-  seatsRemaining       Int
+  seatsRemaining       Int 
   Passengers           User[]            @relation("asPassenger")
   passengersApplied    PassengerStatus[]
   tripBookings         Booking[]

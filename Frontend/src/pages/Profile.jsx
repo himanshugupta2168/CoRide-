@@ -12,7 +12,7 @@ function Profile() {
   
   // console.log(user);
   return (
-    <div>
+    <div className='bg-neutral-100 min-h-screen'>
       <Navbar/>
       <div className='flex flex-col mt-6 w-11/12 mx-auto md:flex-row'>
         <div className='w-full md:w-1/2'>

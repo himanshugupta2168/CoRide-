@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import flowbitePlugin from 'flowbite-react/tailwind'
+// import withMT from "@material-tailwind/react/utils/withMT"
 export default {
   content: [
     "./index.html",

@@ -42,7 +42,7 @@ function Navbar() {
 
                 await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user)
                 .catch((err)=>{
-                    console.log(err.message);
+                    console.log(err);
                 })
             }
         }
@@ -51,7 +51,7 @@ function Navbar() {
   return (
     <div className='flex items-center justify-between w-full h-[100px] px-10 overflow-hidden bg-white'>
         <div>
-            <img src={Coride_Logo} alt="Logo" className='w-[100px] h-[100px]' />
+            <img src={Coride_Logo} alt="Logo" className='w-[100px] h-[100px]' draggable="false"/>
         </div>
         <div className=' px-4'>
             <div className={`hidden md:flex  md:gap-10 items-center`}>
@@ -79,7 +79,7 @@ function Navbar() {
         {/*  responsive navbar  */}
         {
             navbarVisible&&(
-                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white z-10 pb-10'>
+                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white z-50 pb-10'>
                     <div className=' relative w-full h-full'>
                         <div className="cross absolute top-4 right-14 font-semibold text-2xl z-50" onClick={handleNavbar}>X</div>
                         <div className="link pt-20 flex flex-col gap-4 relative">
