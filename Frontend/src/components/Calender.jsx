@@ -1,12 +1,28 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DatePicker from "tailwind-datepicker-react"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { publishDateAtom } from "../atoms/publishRideAtoms";
 
-
-const Calender = () => {
+// const Calender = () => {
+// 	return (
+// 		<LocalizationProvider dateAdapter={AdapterDayjs}>
+// 			<DatePicker />
+// 		</LocalizationProvider>
+// 	);
+// }
+const Calender = ({atomName}) => {
 	const [show, setShow] = useState(false)
+	const atomSetter = useSetRecoilState(atomName);
+	const atomGetter = useRecoilValue(atomName);
+	useEffect(()=>{
+		console.log(atomGetter)
+	},[atomGetter]);
 	const date = new Date();
 	date.setDate(date.getDate()-1);
-	console.log(date);
+	// console.log(date);
 
 	const options= {
 		autoHide: true,
@@ -22,9 +38,9 @@ const Calender = () => {
 		theme: {
 			background: "dark:bg-white",
 			todayBtn: "",
-			clearBtn: "bg-red-500 dark:bg-red-500 border-none hover:dark:bg-red-600",
+			clearBtn: "bg-red-500 dark:bg-red-500 border-none hover:dark:bg-red-600 hover:bg-red-600",
 			icons: "bg-white dark:bg-white text-black dark:text-black hover:bg-slate-200 hover:dark:bg-slate-200",
-			text: "text-slate-500 dark:text-slate-500 hover:bg-slate-200 hover:dark:bg-slate-200",
+			text: "text-black dark:text-white hover:bg-slate-200 hover:dark:bg-slate-200",
 			disabledText: "bg-white text-black dark:text-black hover:bg-slate-300 hover:dark:bg-slate-300 text-slate-200 dark:text-slate-200",
 			input: "bg-white text-black dark:bg-white dark:text-black border-none hover:bg-slate-100",
 			inputIcon: "text-black dark:text-black",
@@ -45,7 +61,7 @@ const Calender = () => {
 	return (
 			<div className="">
 				<div className="py-2 lg:mx-2">
-					<DatePicker show={show} setShow={(state) => setShow(state)} options={options}  />
+					<DatePicker show={show} setShow={(state) => setShow(state)} options={options} onChange={atomSetter} />
 				</div>
 			</div>
 	)

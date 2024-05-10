@@ -38,10 +38,14 @@ function Footer(){
                         </Link>
                     </div>
                 </div>
-                <div className="relative min-[1101px]:ml-auto">
+                <form className="relative min-[1101px]:ml-auto">
                     <NewsletterInput/>
-                    <button type="button" className="text-sm sm:text-xl bg-slate-900 px-4 py-2 rounded-lg text-white ">Signup to newsletter</button>
-                </div>
+                    <div>
+                        {/* aljkflafjioafjalfjk */}
+                        <button type="button" className="bg-slate-900 text-2xl text-white py-1 px-2 rounded-md">Signup to newsletter</button>
+                    </div>
+
+                </form>
             </div>
             <div className="flex flex-col sm:flex-row justify-between px-10 pt-5">
                 <p>&copy; CoRide, 2024</p>
@@ -58,8 +62,8 @@ function Footer(){
 
 function NewsletterInput(){
     return(
-        <div className="border-black m-2 w-ful relative">
-            <input type="email" placeholder="Enter your mail..." className="border-b border-white focus:border-black focus:outline-none focus:ring-0 py-3 px-5 pl-1 text-xl sm:text-3xl"/>
+        <div className="border-black m-2 w-ful relative py-1">
+            <input type="email" placeholder="Enter your mail..." className="border-b border-white focus:border-0  focus:border-b-2 focus:border-black focus:outline-none focus:ring-0 py-3 px-5 pl-1 text-xl sm:text-3xl"/>
         </div>
         //  
     )

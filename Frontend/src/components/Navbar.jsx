@@ -9,19 +9,24 @@ import axios from "axios"
 import { useAuth0 } from '@auth0/auth0-react';
 function Navbar() {
     const [navbarVisible, setNavBarVisible]= useState(false);
+    const {loginWithRedirect,user,isAuthenticated,logout,getAccessTokenSilently} = useAuth0();
+    
+    if(isAuthenticated){
+        const token = async()=>{
+            const t = await getAccessTokenSilently();
+            // console.log(t);
+        }
+        token();
+    }
     const handleNavbar=()=>{
         setNavBarVisible(!navbarVisible);
     }
-    const {loginWithRedirect,user,isAuthenticated,logout} = useAuth0();
     const handleLogin = async () =>{
         const link = (window.location.href).replace("http://localhost:5173","");
-        console.log(link);
+        // console.log(link);
         await loginWithRedirect({
             appState: {
                 returnTo: `${link}`
-            },
-            authorizationParams: {
-                screen_hint: "signup",
             }
         });
     }
@@ -35,7 +40,12 @@ function Navbar() {
     useEffect(()=>{
         const checkUser= async()=>{
             if (user){
-                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,{body:user});
+                // console.log(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user);
+
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,user)
+                .catch((err)=>{
+                    console.log(err);
+                })
             }
         }
         checkUser();
@@ -43,11 +53,16 @@ function Navbar() {
   return (
     <div className='flex items-center justify-between w-full h-[100px] px-10 overflow-hidden bg-white'>
         <div>
-            <img src={Coride_Logo} alt="Logo" className='w-[100px] h-[100px]' />
+            <img src={Coride_Logo} alt="Logo" className='w-[100px] h-[100px]' draggable="false"/>
         </div>
         <div className=' px-4'>
             <div className={`hidden md:flex  md:gap-10 items-center`}>
                 <Link to="/">Home</Link>
+                {
+                    isAuthenticated && (
+                        <Link to='/myRides'>My Rides</Link>
+                    )
+                }
                 <Link to="/create-ride">Create ride</Link>
                 <Link to={`${isAuthenticated?"/profile":"/"}`}>{isAuthenticated?"Profile":"CoRide Benefits"}</Link>
                 { !isAuthenticated && (
@@ -66,11 +81,16 @@ function Navbar() {
         {/*  responsive navbar  */}
         {
             navbarVisible&&(
-                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white z-10 pb-10'>
+                <div className='md:hidden absolute top-4 right-0 w-1/2 border bg-white z-50 pb-10'>
                     <div className=' relative w-full h-full'>
                         <div className="cross absolute top-4 right-14 font-semibold text-2xl z-50" onClick={handleNavbar}>X</div>
                         <div className="link pt-20 flex flex-col gap-4 relative">
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/"> Home </Link>
+                            {
+                                isAuthenticated && (
+                                    <Link to='/myRides' className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300'>My Rides</Link>
+                                )
+                            }
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to="/create-ride">Create ride</Link>
                             <Link className='w-full h-[50px]  pt-2 text-lg font-semibold px-4 hover:bg-gray-300' to={`${isAuthenticated?"/profile":"/"}`}>{isAuthenticated?"Profile":"CoRide Benefits" }</Link>
                             { !isAuthenticated && (

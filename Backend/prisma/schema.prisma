@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   userId                 Int               @id @default(autoincrement())
-  userName               String?            @unique
+  userName               String?           @unique
   fullName               String?
   gender                 String?
   profile_picture        String?
@@ -46,14 +46,15 @@ model Review {
 }
 
 model Vehicle {
-  vehicleId    Int       @id @default(autoincrement())
-  vehicleOwner User      @relation(fields: [vehicleId], references: [userId])
-  Company      String
-  model        String
-  purchaseYear DateTime?
-  vehicleType  String
-  capacity     Int
-  trips        Ride[]
+  vehicleId          Int    @id @default(autoincrement())
+  vehicleOwnerUserId Int    
+  vehicleOwner       User   @relation(fields: [vehicleOwnerUserId], references: [userId])
+  Company            String
+  model              String
+  purchaseYear       Int?
+  vehicleType        String
+  capacity           Int
+  trips              Ride[]
 }
 
 model Ride {
@@ -68,7 +69,7 @@ model Ride {
   destination          String
   departureTime        DateTime
   EstimatedArrivalTime DateTime
-  seatsRemaining       Int
+  seatsRemaining       Int 
   Passengers           User[]            @relation("asPassenger")
   passengersApplied    PassengerStatus[]
   tripBookings         Booking[]
