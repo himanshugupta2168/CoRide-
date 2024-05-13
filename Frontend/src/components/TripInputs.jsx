@@ -1,17 +1,24 @@
 import { InlineIcon } from '@iconify/react';
-import { useMemo, useState } from 'react';
+import { useMemo, useEffect, useCallback } from 'react';
 import Calender from './Calender';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { searchSourceAtom, searchDestAtom, searchDateAtom, searchSeatsAtom } from '../atoms/searchRideAtoms';
-
+import axios from 'axios';
 
 export default function TripInputs(){
+	const sourceCity = useRecoilValue(searchSourceAtom)
+	const destinationCity = useRecoilValue(searchDestAtom)
+	const date = useRecoilValue(searchDateAtom)
+	const seats= useRecoilValue(searchSeatsAtom)
+	const handlefindRides= async()=>{
+		const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/rides/fetch?SC=${sourceCity}&DC=${destinationCity}&date=${date}&seats=${seats}`);
+
+	}
     return(
         <div className='relative px-10'>
 			<div className='bg-white rounded-lg'>
 				<InputFields />
-				<button className='bg-green-500 w-full py-3 px-4 rounded-b-lg text-xl hover:bg-green-600'>Search</button>
-
+				<button className='bg-green-500 w-full py-3 px-4 rounded-b-lg text-xl hover:bg-green-600' onClick={handlefindRides}>Search</button>
 			</div>
         </div>
 

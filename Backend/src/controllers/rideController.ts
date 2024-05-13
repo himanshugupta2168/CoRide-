@@ -67,26 +67,41 @@ export const createRide = async(req:Request, res:Response)=>{
 }
 
 
-export const  getRides = async(req:Request,res:Response)=>{
-    try {
-        const email:string | undefined = req.query.email as string | undefined;
-        const user = await prisma.user.findFirst({
-            where:{
-              email
-            },
-            select:{
-              userId:true
-            }
-          })
-          if(!user){
-            return res.status(404).json({
-              success: false,
-              message: "User not found"
+export const fetchRides =async (req:Request, res:Response)=>{
+    try{
+        const {SC, DC , date , seats }= req.query;
+        if (!date || !SC || !DC || !seats){
+            return res.status(200).json({
+                success:false, 
+                error :"Please provide all the trip details",
             })
-          } else{
-            
-          }
-    } catch (error) {
-        
+        }
+        const rides = await prisma.ride.findMany({
+            where: {
+                origin: {contains: SC ? SC.toString(): undefined },
+                destination: {startsWith: DC ? DC.toString() : undefined },
+            }
+        });
+        const filteredRides = rides.filter(ride => {
+            // Compare entire date string with departureTime
+            const tofilterDate= new Date(date.toString());
+            return (
+                tofilterDate.toISOString().split('T')[0]===ride.departureTime.toISOString().split('T')[0]
+                &&
+                seats<= ride.seatsRemaining.toString()
+            );
+        });
+        return res.status(200).json({
+            success:true, 
+            mesaage:"Rides fetched Successfully", 
+            rides:filteredRides,
+        })
+    }
+    catch(e:any){
+          return res.status(500).json({
+            success:false, 
+            message :"Error in finding rides", 
+            error : e.mesaage
+          })
     }
 }

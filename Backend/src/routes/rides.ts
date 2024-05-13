@@ -1,9 +1,7 @@
 import { Router } from "express";
 const router = Router();
-import { createRide } from "../controllers/rideController";
+import { createRide, fetchRides } from "../controllers/rideController";
 
 router.post("/create", createRide);
-router.post("/fetch", );
-
-
+router.get("/fetch",fetchRides);
 export default router;
