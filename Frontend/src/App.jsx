@@ -10,6 +10,7 @@ import { CallbackPage } from './pages/Callback'
 import { useAuth0 } from '@auth0/auth0-react'
 import { AuthenticationGuard } from './components/AuthenticationGuard'
 import { useLocation } from 'react-router-dom';
+import BulkRides from './pages/BulkRides'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -34,6 +35,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/create-ride' element={<CreateRide/>} />
           <Route path='/callback' element={<CallbackPage/>} />
+          <Route path='/all-rides' element={<BulkRides/>}/>
           <Route path='/profile' element={<AuthenticationGuard component={Profile} />}/>
           <Route path='/myRides' element={<AuthenticationGuard component={MyRides} />}/>
           <Route path='/*' element={<Home/>} />

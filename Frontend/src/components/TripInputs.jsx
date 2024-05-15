@@ -4,15 +4,18 @@ import Calender from './Calender';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { searchSourceAtom, searchDestAtom, searchDateAtom, searchSeatsAtom } from '../atoms/searchRideAtoms';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function TripInputs(){
+	const navigate = useNavigate();
 	const sourceCity = useRecoilValue(searchSourceAtom)
 	const destinationCity = useRecoilValue(searchDestAtom)
 	const date = useRecoilValue(searchDateAtom)
 	const seats= useRecoilValue(searchSeatsAtom)
-	const handlefindRides= async()=>{
-		const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/rides/fetch?SC=${sourceCity}&DC=${destinationCity}&date=${date}&seats=${seats}`);
-
+	const handlefindRides=()=>{
+		if (sourceCity.length>0 && destinationCity.length>0){
+			navigate("/all-rides")
+		}
 	}
     return(
         <div className='relative px-10'>

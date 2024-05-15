@@ -18,7 +18,7 @@ const Calender = ({atomName}) => {
 	const atomSetter = useSetRecoilState(atomName);
 	const atomGetter = useRecoilValue(atomName);
 	useEffect(()=>{
-		console.log(atomGetter)
+		// console.log(atomGetter)
 	},[atomGetter]);
 	const date = new Date();
 	date.setDate(date.getDate()-1);
@@ -61,7 +61,7 @@ const Calender = ({atomName}) => {
 	return (
 			<div className="">
 				<div className="py-2 lg:mx-2">
-					<DatePicker show={show} setShow={(state) => setShow(state)} options={options} onChange={atomSetter} />
+					<DatePicker show={show} setShow={(state) => setShow(state)} options={options} onChange={atomSetter} value={atomGetter} />
 				</div>
 			</div>
 	)

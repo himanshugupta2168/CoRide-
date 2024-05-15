@@ -79,7 +79,7 @@ export const fetchRides =async (req:Request, res:Response)=>{
         const rides = await prisma.ride.findMany({
             where: {
                 origin: {contains: SC ? SC.toString(): undefined },
-                destination: {startsWith: DC ? DC.toString() : undefined },
+                destination: {contains: DC ? DC.toString() : undefined },
             }
         });
         const filteredRides = rides.filter(ride => {
