@@ -39,13 +39,21 @@ function BulkRides() {
        if (isMobile){
         setUpdateView(false)
        }
+       console.log(rides);
     }
 
 
     useEffect(()=>{
         getRideDetails();
     }, [])
+    const [dialogVisible , setDialogVisible]= useState(false) 
 
+    const addPassengerCash=()=>{
+
+    }
+    const addPassengerDigital=()=>{
+
+    }
   return (
     <div>
         <Navbar/>
@@ -54,7 +62,7 @@ function BulkRides() {
         </div>
         <div className='relative z-0'>
             {updateView &&(
-                <div className=' w-full h-10 lg:sticky lg:top-0 grid grid-cols-1 max-w-[550px] mx-auto lg:min-w-full lg:grid-cols-5 items-center justify-between px-6'>
+                <div className=' w-full h-10 lg:sticky lg:top-0 grid grid-cols-1 max-w-[550px] mx-auto lg:min-w-full lg:grid-cols-5 items-center justify-between px-6 bg-white'>
                     <CitySearch placeholder={"Leaving from"} atomName={searchSourceAtom} />
                     <CitySearch placeholder={"Going to"} atomName={searchDestAtom} />
                     <Calender atomName={searchDateAtom} />
@@ -64,15 +72,47 @@ function BulkRides() {
             )}
              <div className='w-full min-h-screen border mt-10'>
             {
-                !rides&&(<div className='flex flex-col items-center justify-center w-full min-h-screen border'>
+                rides.length<=0 &&(<div className='flex flex-col items-center justify-center w-full min-h-screen border'>
                     <p className='break-words px-6 py-4'>Ohhh! No rides available for your search  😥😥😥...</p>
                     <p onClick={()=>setUpdateView(!updateView)} className='underline text-blue-500 lg:hidden'>Update search details </p>
                 </div>)
             }
             {
                 rides && rides.map((ride, i)=>{
-                    return <p key={i}>{JSON.stringify(ride)}</p>
+                    return <div key={i} className='bg-slate-200 px-10 my-2 flex flex-col lg:flex-row'>
+                        <div className="w-full lg:w-10/12 flex flex-row gap-2 lg:pr-4 py-4">
+                            {/* sources div */}
+                            <div className='w-full py-2 flex flex-col justify-center items-center'>
+                                <h2 className='text-2xl font-semibold text-center text-slate-700'>{ride.origin}</h2>
+                                <h3 className='text-center'>{ride.departureTime.split('T')[1].split('.')[0]}</h3>
+                            </div>
+                            {/* destination div */}
+                            <div className='w-full py-2 flex justify-center items-center flex-col px-2'>
+                                <h2 className='text-2xl font-semibold text-center text-slate-700'>{ride.destination}</h2>
+                                <h3 className='text-center'>{ride.EstimatedArrivalTime.split('T')[1].split('.')[0]}</h3>
+                            </div>
+                            <div className='w-full flex justify-center items-center'>
+                                <h1 className='lg:text-xl font-semibold'>Seats:{ride.seatsRemaining}</h1>
+                            </div>
+                        </div>
+                        <div className='lg:w-2/12 flex items-center justify-center'>
+                            <button className='w-full font-semibold text-lg bg-green-400 rounded-full py-2 mb-2 lg:mb-0' onClick={()=>{
+                                setDialogVisible(!dialogVisible)
+                            }}>₹ {ride.price*seats}</button>
+                        </div>
+                    </div>
                 })
+            }
+            {
+                dialogVisible &&
+                <div className='absolute -top-28 justify-center items-center left-1 right-1 flex flex-col  bg-white min-h-screen  gap-4  border border-black '>
+                    <h1 className='text-white bg-green-400 px-10 py-2 rounded-full text-xl cursor-pointer hover:scale-110 duration-200 hover:bg-green-500' onClick={addPassengerCash}>Pay by Cash </h1>
+                    <h1 className='text-white bg-green-400 px-10 py-2 rounded-full text-xl cursor-pointer hover:scale-110 duration-200 hover:bg-green-500' onClick={addPassengerDigital}>Pay Digitally </h1>
+                    <h1 onClick={()=>{
+                        setDialogVisible(!dialogVisible)
+                    }} className='text-white bg-rose-400 px-6 py-2 rounded-full text-xl cursor-pointer hover:scale-110 duration-200 hover:bg-rose-500'>Close</h1>
+                </div>
+
             }
         </div>
         </div>

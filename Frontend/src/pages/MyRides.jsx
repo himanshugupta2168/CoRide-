@@ -34,21 +34,21 @@ export default function MyRides() {
           <div className="w-[100%]">
             <div className="border-b-2">
               <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
+                <Tab label="Upcoming Rides" {...a11yProps(0)} />
+                <Tab label="Passenger Requests " {...a11yProps(1)} />
+                <Tab label="Completed Rides" {...a11yProps(2)} />
               </Tabs>
             </div>
               {isLoading?(<p>Loading...</p>):
               (<div>
                 <CustomTabPanel value={value} index={0}>
-                  Item One
+                  Hello this will show my upcoming rides 
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
-                  Item Two
+                  Heelo this will show my passenger requests 
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
-                  Item Three
+                  Hello this will show my Completed Rides 
                 </CustomTabPanel>
               </div>)}
           </div>
