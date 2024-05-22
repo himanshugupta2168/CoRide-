@@ -32,8 +32,8 @@ model User {
   vehicles               Vehicle[]
   offeredRides           Ride[]            @relation("asDriver")
   joinedRides            Ride[]            @relation("asPassenger")
-  requestedRides         PassengerStatus[]
   bookings               Booking[]
+  requests               Booking[]  @relation("asDriver")
 }
 
 model Review {
@@ -65,48 +65,46 @@ model Ride {
   vehicleId            Int
   origin               String
   price                Float
-  wayPoints            wayPoint[]
+  // wayPoints            wayPoint[]
   destination          String
   departureTime        DateTime
   EstimatedArrivalTime DateTime
   seatsRemaining       Int 
   Passengers           User[]            @relation("asPassenger")
-  passengersApplied    PassengerStatus[]
   tripBookings         Booking[]
+  completed            Boolean           @default(false)
 }
 
-model wayPoint {
-  wayPointId              Int       @id @default(autoincrement())
-  Ride                    Ride      @relation(fields: [rideId], references: [rideId])
-  rideId                  Int
-  wayPointLocation        String
-  wayPointTime            DateTime
-  numberOfSeatsAtWayPoint Int
-  bookingStarts           Booking[] @relation("PickUpWayPoint")
-  bookingEnds             Booking[] @relation("DropOffWayPoint")
-}
+// model wayPoint {
+//   wayPointId              Int       @id @default(autoincrement())
+//   Ride                    Ride      @relation(fields: [rideId], references: [rideId])
+//   rideId                  Int
+//   wayPointLocation        String
+//   wayPointTime            DateTime
+//   numberOfSeatsAtWayPoint Int
+//   bookingStarts           Booking[] @relation("PickUpWayPoint")
+//   bookingEnds             Booking[] @relation("DropOffWayPoint")
+// }
 
-model PassengerStatus {
-  passenger           Ride      @relation(fields: [passengerStatusId], references: [rideId])
-  passengerStatusId   Int       @id @default(autoincrement())
-  user                User      @relation(fields: [requestedUserId], references: [userId])
-  requestedUserId     Int
-  status              String    @default("pending")
-  bookingconfirmation Booking[]
-}
+// model PassengerStatus {
+//   passenger           Ride      @relation(fields: [passengerStatusId], references: [rideId])
+//   passengerStatusId   Int       @id @default(autoincrement())
+//   user                User      @relation(fields: [requestedUserId], references: [userId])
+//   requestedUserId     Int
+//   status              String    @default("pending")
+//   bookingconfirmation Booking[]
+// }
 
 model Booking {
   bookingId         Int              @id @default(autoincrement())
-  rider             User             @relation(fields: [riderId], references: [userId]) // Rider who made the booking
+  rider             User?             @relation(fields: [riderId], references: [userId]) // Rider who made the booking
   riderId           Int
-  ride              Ride             @relation(fields: [rideId], references: [rideId]) // Ride being booked
+  ride              Ride?            @relation(fields: [rideId], references: [rideId]) // Ride being booked
   rideId            Int
-  pickUp            wayPoint         @relation("PickUpWayPoint", fields: [pickUpId], references: [wayPointId]) // Pick-up location
-  pickUpId          Int
-  dropOff           wayPoint         @relation("DropOffWayPoint", fields: [dropOffId], references: [wayPointId]) // Drop-off location
-  dropOffId         Int
+  driver            User?            @relation("asDriver", fields: [driverId], references: [userId])
+  driverId           Int             @default(1)
   bookingStatus     String // Booking status: confirmed, pending, rejected, cancelled
   paymentStatus     String // Payment status: confirmed, rejected
-  passengerStatus   PassengerStatus? @relation(fields: [passengerStatusId], references: [passengerStatusId]) // Passenger status associated with the booking
-  passengerStatusId Int?
+  seatsRequired     Int             @default(1)
+  stripe_ref_id     String?
 }

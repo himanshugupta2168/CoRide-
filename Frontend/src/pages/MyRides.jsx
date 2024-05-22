@@ -5,6 +5,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import PassengerRequests from "../components/PassengerRequests";
+import UpcomingRides from "../components/UpcomingRides";
 
 export default function MyRides() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,19 +38,15 @@ export default function MyRides() {
               <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                 <Tab label="Upcoming Rides" {...a11yProps(0)} />
                 <Tab label="Passenger Requests " {...a11yProps(1)} />
-                <Tab label="Completed Rides" {...a11yProps(2)} />
               </Tabs>
             </div>
               {isLoading?(<p>Loading...</p>):
               (<div>
                 <CustomTabPanel value={value} index={0}>
-                  Hello this will show my upcoming rides 
+                  <UpcomingRides/>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
-                  Heelo this will show my passenger requests 
-                </CustomTabPanel>
-                <CustomTabPanel value={value} index={2}>
-                  Hello this will show my Completed Rides 
+                  <PassengerRequests/>
                 </CustomTabPanel>
               </div>)}
           </div>
