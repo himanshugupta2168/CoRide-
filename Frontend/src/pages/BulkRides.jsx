@@ -13,6 +13,7 @@ import {
 } from "../atoms/searchRideAtoms";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import {loadStripe} from "@stripe/stripe-js"
 function BulkRides() {
   const sourceCity = useRecoilValue(searchSourceAtom);
   const destinationCity = useRecoilValue(searchDestAtom);
@@ -21,9 +22,33 @@ function BulkRides() {
   const [updateView, setUpdateView] = useState(true);
   const [rides, setRides] = useState([]);
   const [publishableKey , setPublishableKey]= useState("");
-  let isMobile = undefined;
   const { user } = useAuth0();
   const navigate = useNavigate();
+  let isMobile = undefined;
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [rideDetails, setRideDetails] = useState({
+    amount: 0,
+    origin: "",
+    destination: "",
+    useremail: "",
+    rideId: 0,
+    seatsRequired: 0,
+    driverId:1,
+  });
+  const [stripePromise , setStripePromise]= useState(null);
+  const [clientSecret, setClientSecret]= useState("");
+  const getPublishableKey=async()=>{
+    const {data}= await axios.get(`${import.meta.env.VITE_BACKEND_URL}/payments/pubKey`);
+    // console.log(data);
+    setStripePromise(loadStripe(data.PublishableKey))
+
+  }
+  useEffect(()=>{
+    getPublishableKey();
+  }, [])
+
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,31 +79,18 @@ function BulkRides() {
     console.log(rides);
   };
 
-  const getPublishableKey=async()=>{
-    const {data}= await axios.get(`${import.meta.env.VITE_BACKEND_URL}/payments/pubKey`);
-    setPublishableKey(data.PublishableKey);
-
-  }
+  
 
   useEffect(() => {
     getRideDetails();
     getPublishableKey();
   }, []);
-  const [dialogVisible, setDialogVisible] = useState(false);
-  const [rideDetails, setRideDetails] = useState({
-    amount: 0,
-    origin: "",
-    destination: "",
-    useremail: "",
-    rideId: 0,
-    seatsRequired: 0,
-    driverId:1,
-  });
   const checkoutHandler = async () => {
       const {data}= await axios.post(`${import.meta.env.VITE_BACKEND_URL}/payments/checkout`, {
         rideDetails,
         paymentMode:"Online"
       });
+      setClientSecret(data.clientSecret);
   };
   const addPassengerCash = async () => {
     // setPaymentMode('Cash');

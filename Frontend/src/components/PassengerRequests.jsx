@@ -6,15 +6,34 @@ import {Link} from "react-router-dom"
 function PassengerRequests() {
   const {user}= useAuth0();
   const[requests , setRequests]= useState([])
+  const [currentReq, setCurrentReq]= useState(null)
+
+
+    const findPassengerRequests= async()=>{
+      const {data}= await axios.get(`${import.meta.env.VITE_BACKEND_URL}/rides/fetchRequests/?email=${user.email}`);
+      setRequests(data.requestedPassengers);
+    }
     useEffect(()=>{
-        const findPassengerRequests= async()=>{
-           const {data}= await axios.get(`${import.meta.env.VITE_BACKEND_URL}/rides/fetchRequests/?email=${user.email}`);
-           console.log(data);
-           setRequests(data.requestedPassengers);
-        }
         findPassengerRequests();
     }, [user])
-    console.log(requests);
+    const handleDecline=async()=>{
+      const {data }= await axios.post(`${import.meta.env.VITE_BACKEND_URL}/rides/declinePassenger`,{
+        currentReq
+      });
+      if(data.success){
+          findPassengerRequests()
+      }
+    }
+    const handleAccept=async()=>{
+      // console.log(currentReq);
+      const {data }= await axios.post(`${import.meta.env.VITE_BACKEND_URL}/rides/acceptPassenger`,{
+        currentReq
+      });
+      if(data.success){
+          findPassengerRequests()
+      }
+    }
+    console.log(currentReq);
   return (
     <div className='w-full'>
       {/* bookingId , RiderId , RideId, DriverId , BookingStatus PaymentStatus , seatsRequired*/}
@@ -39,8 +58,14 @@ function PassengerRequests() {
                 </div>
               </div>
               <div className='flex flex-row justify-around items-center my-2 gap-4 mx-2'>
-                <button className=' bg-rose-500  rounded-lg font-bold text-white px-10 py-2'>Decline </button>
-                <button className='bg-green-500 rounded-lg font-bold text-white px-10 py-2'>Accept</button>
+                <button className=' bg-rose-500  rounded-lg font-bold text-white px-10 py-2' onClick={()=>{
+                  setCurrentReq(request);
+                  handleDecline();
+                }}>Decline </button>
+                <button className='bg-green-500 rounded-lg font-bold text-white px-10 py-2' onClick={()=>{
+                  setCurrentReq(request);
+                  handleAccept();
+                }}>Accept</button>
               </div>
             </div>
           })

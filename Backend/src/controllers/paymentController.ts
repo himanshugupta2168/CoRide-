@@ -41,32 +41,14 @@ export const checkout = async (req: Request, res: Response) => {
         mode: "Cash",
       });
     } else {
-      const product = await stripe.products.create({
-        name: rideDetails.destination + rideDetails.origin,
-      });
-      var price = await stripe.prices.create({
-        product: `${product.id}`,
-        unit_amount: rideDetails.amount * 100,
-        currency: "inr",
-      });
-      const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price: `${price.id}`,
-            quantity: 1,
-          },
-        ],
-        customer_email:"test@coride.com",
-        mode: "payment",
-        success_url: "http://localhost:8000/api/v1/payments/success",
-        cancel_url: "http://localhost:8000/api/v1/payments/cancel",
-      });
-      if (session.url){
-        res.redirect(303, session.url)
-      }
-      else{
-        throw new Error ("Unable to handle stripe payment interface")
-      }
+        const paymentIntent= await stripe.paymentIntents.create({
+            currency:"inr", 
+            amount:19999, 
+            automatic_payment_methods:{
+                enabled:true,
+            }
+        }) 
+        res.send({clientSecret:paymentIntent.client_secret});
     }
   } catch (e: any) {
     return res.status(500).json({
@@ -76,9 +58,12 @@ export const checkout = async (req: Request, res: Response) => {
   }
 };
 
-export const payment = async (req: any, res: any) => {
-  console.log(req);
-  return res.status(200).json({
-    success: true,
-  });
-};
+// export const paymentIntent = async(req:Request, res:Response)=>{
+//     const paymentIntent= await stripe.paymentIntents.create({
+//         currency:"inr", 
+//         amount:19999, 
+//         automatic_payment_methods:{
+//             enabled:true,
+//         }
+//     }) 
+// }
