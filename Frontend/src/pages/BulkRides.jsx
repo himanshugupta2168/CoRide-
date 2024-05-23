@@ -35,17 +35,17 @@ function BulkRides() {
     seatsRequired: 0,
     driverId:1,
   });
-  const [stripePromise , setStripePromise]= useState(null);
-  const [clientSecret, setClientSecret]= useState("");
-  const getPublishableKey=async()=>{
-    const {data}= await axios.get(`${import.meta.env.VITE_BACKEND_URL}/payments/pubKey`);
-    // console.log(data);
-    setStripePromise(loadStripe(data.PublishableKey))
+  // const [stripePromise , setStripePromise]= useState(null);
+  // const [clientSecret, setClientSecret]= useState("");
+  // const getPublishableKey=async()=>{
+  //   const {data}= await axios.get(`${import.meta.env.VITE_BACKEND_URL}/payments/pubKey`);
+  //   // console.log(data);
+  //   setStripePromise(loadStripe(data.PublishableKey))
 
-  }
-  useEffect(()=>{
-    getPublishableKey();
-  }, [])
+  // }
+  // useEffect(()=>{
+  //   getPublishableKey();
+  // }, [])
 
 
 
@@ -83,14 +83,17 @@ function BulkRides() {
 
   useEffect(() => {
     getRideDetails();
-    getPublishableKey();
+    // getPublishableKey();
   }, []);
   const checkoutHandler = async () => {
       const {data}= await axios.post(`${import.meta.env.VITE_BACKEND_URL}/payments/checkout`, {
         rideDetails,
         paymentMode:"Online"
       });
-      setClientSecret(data.clientSecret);
+      console.log(data);
+      if (data.url){
+        window.location.href=data.url
+      }
   };
   const addPassengerCash = async () => {
     // setPaymentMode('Cash');
