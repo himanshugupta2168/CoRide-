@@ -66,20 +66,16 @@ function BulkRides() {
     };
   }, []);
 
-  const getRideDetails = async () => {
-    const response = await axios.get(
-      `${
-        import.meta.env.VITE_BACKEND_URL
-      }/rides/fetch?SC=${sourceCity}&DC=${destinationCity}&date=${date}&seats=${seats}`
-    );
-    setRides(response.data.rides);
-    if (isMobile) {
-      setUpdateView(false);
-    }
-    console.log(rides);
-  };
 
-  
+    const getRideDetails = async()=>{
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/rides/fetch?SC=${sourceCity}&DC=${destinationCity}&date=${date}&seats=${seats}`);
+       setRides(response.data.rides);
+       if (isMobile){
+        setUpdateView(false)
+       }
+       console.log(rides);
+    }
+
 
   useEffect(() => {
     getRideDetails();

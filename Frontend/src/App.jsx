@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import {RecoilRoot} from "recoil"
 import {Routes, Route} from "react-router-dom"
 import Home from './pages/Home'
@@ -13,10 +13,10 @@ import { useLocation } from 'react-router-dom';
 import BulkRides from './pages/BulkRides'
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
   const {pathname} = useLocation();
   
-  const {isLoading,user} = useAuth0();
+  const {isLoading} = useAuth0();
   // console.log(pathname);
 
   if(isLoading && pathname!="/create-ride"){
