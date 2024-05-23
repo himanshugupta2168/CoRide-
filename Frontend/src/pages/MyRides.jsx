@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Navbar from "../components/Navbar"
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
+import { useAuth0 } from '@auth0/auth0-react'
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+
 import PassengerRequests from "../components/PassengerRequests";
 import UpcomingRides from "../components/UpcomingRides";
 
 export default function MyRides() {
   const [isLoading, setIsLoading] = useState(false);
+  const {user} = useAuth0();
   const [value, setValue] = useState(0);
   const [allRides,setAllRides] = useState([]);
   const [takenRides,setTakenRides] = useState([]);
@@ -17,10 +19,22 @@ export default function MyRides() {
 
 
   useEffect(() => {
-    setIsLoading(true);
-    
-    setIsLoading(false);
-  }, [])
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/rides/myRides?email=${user.email}`);
+        console.log(response.data); // Handle the response data accordingly
+      } catch (error) {
+        console.error('Error fetching rides:', error);
+        // Handle error (e.g., display error message)
+      }finally{
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
   if (isLoading) {
     return <p>Loading...</p>
   }
@@ -35,8 +49,19 @@ export default function MyRides() {
         <div>
           <div className="w-[100%]">
             <div className="border-b-2">
-              <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Upcoming Rides" {...a11yProps(0)} />
+              <Tabs value={value} onChange={handleChange} sx={{
+          '& .MuiTabs-indicator': {
+            backgroundColor: 'green', // Set the indicator color to green
+          },
+          '& .MuiTab-root': {
+            textTransform: 'none',
+            fontWeight: 'bold',
+            '&.Mui-selected': {
+              color: 'green', // Set the text color of the selected tab to green
+            },
+          },
+        }}>
+                <Tab label="All Rides" {...a11yProps(0)} />
                 <Tab label="Passenger Requests " {...a11yProps(1)} />
               </Tabs>
             </div>
